@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+
+    container_name: travel-frontend-container
+
+    ports:
+      - "8080:80"
+
+    restart: always
