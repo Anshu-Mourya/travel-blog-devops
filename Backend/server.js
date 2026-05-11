@@ -1,32 +1,44 @@
-const express = require("express");
-const cors = require("cors");
+const express   = require("express");
+const mongoose  = require("mongoose");
+const cors      = require("cors");
+require("dotenv").config();
+
+const Destination = require("./models/Destination");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
+app.use(express.json());
 
-const PORT = 5001;
+// ── Connect to MongoDB ──────────────────────────────────
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB error:", err));
 
-app.get("/api/destinations", (req, res) => {
-  res.json([
-    {
-      name: "Maldives",
-      image:
-        "https://images.unsplash.com/photo-1573843981267-be1999ff37cd"
-    },
-    {
-      name: "Switzerland",
-      image:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-    },
-    {
-      name: "Paris",
-      image:
-        "https://images.unsplash.com/photo-1499856871958-5b9627545d1a"
-    }
-  ]);
+// ── Routes ──────────────────────────────────────────────
+
+// GET all destinations
+app.get("/api/destinations", async (req, res) => {
+  try {
+    const destinations = await Destination.find();
+    res.json(destinations);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// POST a new destination
+app.post("/api/destinations", async (req, res) => {
+  try {
+    const destination = new Destination(req.body);
+    await destination.save();
+    res.status(201).json(destination);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
+
+// ── Start Server ────────────────────────────────────────
+app.listen(process.env.PORT, () =>
+  console.log(`🚀 Server running on port ${process.env.PORT}`)
+);
