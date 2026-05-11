@@ -38,6 +38,16 @@ app.post("/api/destinations", async (req, res) => {
   }
 });
 
+// DELETE a destination
+app.delete("/api/destinations/:id", async (req, res) => {
+  try {
+    await Destination.findByIdAndDelete(req.params.id);
+    res.json({ message: "✅ Destination deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Start Server ────────────────────────────────────────
 app.listen(process.env.PORT, () =>
   console.log(`🚀 Server running on port ${process.env.PORT}`)
