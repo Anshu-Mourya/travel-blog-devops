@@ -1,6 +1,8 @@
+const API_BASE = "http://localhost:5001";
+
 let allDestinations = [];
 
-const container = document.getElementById("card-container");
+const container   = document.getElementById("card-container");
 const searchInput = document.querySelector('input[type="text"]');
 
 // ── Skeleton Loader ───────────────────────────────────────
@@ -37,9 +39,8 @@ function displayDestinations(destinations) {
 
   destinations.forEach((destination, index) => {
     const card = document.createElement("div");
-    card.classList.add("card");
+    card.classList.add("card", "card-animate");
     card.style.animationDelay = `${index * 60}ms`;
-    card.classList.add("card-animate");
 
     card.innerHTML = `
       <img
@@ -63,7 +64,7 @@ function displayDestinations(destinations) {
 
 showSkeletons();
 
-fetch("http://localhost:5001/api/destinations")
+fetch(`${API_BASE}/api/destinations`)
   .then((response) => {
     if (!response.ok) throw new Error("Network response was not ok");
     return response.json();
@@ -113,5 +114,4 @@ document.querySelectorAll(".sidebar ul li").forEach((item) => {
 
 function openDestination(destination) {
   console.log("Opened destination:", destination.name);
-  // Extend this to open a modal or navigate to a detail page
 }

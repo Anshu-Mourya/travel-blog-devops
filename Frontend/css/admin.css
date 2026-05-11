@@ -1,0 +1,273 @@
+/* ── Admin Layout ────────────────────────────────────────── */
+
+.admin-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  transition: all var(--transition);
+}
+
+.back-btn:hover {
+  color: var(--coral);
+  border-color: var(--coral);
+  background: rgba(232, 99, 74, 0.05);
+}
+
+/* ── Admin Cards ─────────────────────────────────────────── */
+
+.admin-card,
+.admin-list-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--sand-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1.5px solid var(--sand-mid);
+}
+
+.admin-card-header i {
+  font-size: 1.1rem;
+  color: var(--coral);
+  width: 36px;
+  height: 36px;
+  background: rgba(232, 99, 74, 0.1);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-card-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Form Groups ─────────────────────────────────────────── */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.form-group input {
+  background: var(--sand);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(232, 99, 74, 0.12);
+  background: var(--white);
+}
+
+/* ── Image Preview ───────────────────────────────────────── */
+
+.image-preview {
+  width: 100%;
+  height: 160px;
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--sand-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  overflow: hidden;
+  transition: border-color var(--transition);
+  background: var(--sand);
+}
+
+.image-preview i {
+  font-size: 2rem;
+  color: var(--sand-dark);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+/* ── Status Message ──────────────────────────────────────── */
+
+.status-msg {
+  display: none;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-msg.show {
+  display: block;
+}
+
+.status-msg.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #15803d;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.status-msg.error {
+  background: rgba(232, 99, 74, 0.1);
+  color: var(--coral-dark);
+  border: 1px solid rgba(232, 99, 74, 0.25);
+}
+
+/* ── Submit Button ───────────────────────────────────────── */
+
+.submit-btn {
+  background: var(--coral);
+  color: var(--white);
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--radius-xl);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(232, 99, 74, 0.35);
+  width: 100%;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--coral-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232, 99, 74, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ── Destinations List ───────────────────────────────────── */
+
+.loading-text {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.dest-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: var(--sand);
+  border: 1px solid var(--sand-dark);
+  transition: background var(--transition);
+}
+
+.dest-item:hover {
+  background: var(--sand-mid);
+}
+
+.dest-item img {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.dest-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dest-item-info h4 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dest-item-info p {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.delete-btn {
+  background: rgba(232, 99, 74, 0.1);
+  color: var(--coral);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+}
+
+.delete-btn:hover {
+  background: var(--coral);
+  color: var(--white);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .admin-section {
+    grid-template-columns: 1fr;
+  }
+}

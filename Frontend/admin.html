@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Add Destination</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Travel</h2>
+      <ul>
+        <li onclick="window.location.href='index.html'">
+          <i class="fa-solid fa-house"></i> Home
+        </li>
+        <li class="active">
+          <i class="fa-solid fa-plus"></i> Add Destination
+        </li>
+        <li><i class="fa-solid fa-location-dot"></i> Trips</li>
+        <li><i class="fa-regular fa-bookmark"></i> Saved</li>
+        <li><i class="fa-solid fa-gear"></i> Settings</li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <h1>Admin Panel</h1>
+        <a href="index.html" class="back-btn">
+          <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+      </div>
+
+      <!-- Add Destination Form -->
+      <section class="admin-section">
+
+        <div class="admin-card">
+
+          <div class="admin-card-header">
+            <i class="fa-solid fa-location-dot"></i>
+            <h2>Add New Destination</h2>
+          </div>
+
+          <div class="form-group">
+            <label for="dest-name">Destination Name *</label>
+            <input
+              type="text"
+              id="dest-name"
+              placeholder="e.g. Bali"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="dest-country">Country *</label>
+            <input
+              type="text"
+              id="dest-country"
+              placeholder="e.g. Indonesia"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="dest-image">Image URL *</label>
+            <input
+              type="text"
+              id="dest-image"
+              placeholder="https://images.unsplash.com/..."
+            >
+          </div>
+
+          <!-- Image Preview -->
+          <div class="image-preview" id="image-preview">
+            <i class="fa-solid fa-image"></i>
+            <p>Image preview will appear here</p>
+          </div>
+
+          <!-- Status Message -->
+          <div class="status-msg" id="status-msg"></div>
+
+          <!-- Submit Button -->
+          <button class="submit-btn" id="submit-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Destination
+          </button>
+
+        </div>
+
+        <!-- Destinations List -->
+        <div class="admin-list-card">
+
+          <div class="admin-card-header">
+            <i class="fa-solid fa-list"></i>
+            <h2>All Destinations</h2>
+          </div>
+
+          <div id="admin-dest-list">
+            <p class="loading-text">Loading destinations...</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="js/admin.js"></script>
+
+</body>
+</html>
