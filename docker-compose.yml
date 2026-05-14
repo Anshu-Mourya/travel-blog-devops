@@ -1,25 +1,23 @@
-version: "3.8"
+version: '3'
 
 services:
-  mongo:
-    image: mongo:7
-    container_name: travel-mongo
+
+  frontend:
+    build: ./Frontend
     ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
+      - "8080:80"
 
   backend:
     build: ./Backend
-    container_name: travel-backend
     ports:
       - "5001:5001"
-    env_file:
-      - ./Backend/.env
-    depends_on:
-      - mongo
     environment:
-      MONGO_URI: mongodb://mongo:27017/travel-blog
+      - MONGO_URI=mongodb://mongodb:27017/travelDB
+      - PORT=5001
+    depends_on:
+      - mongodb
 
-volumes:
-  mongo-data:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
