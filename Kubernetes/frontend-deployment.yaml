@@ -19,10 +19,23 @@ spec:
 
     spec:
       containers:
-      - name: frontend
-        image: travel-frontend
+        - name: frontend
+          image: travel-frontend
 
-        imagePullPolicy: Never
+          env:
+            - name: API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: travel-config
+                  key: API_URL
 
-        ports:
-        - containerPort: 80
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: travel-config
+                  key: APP_ENV
+
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 80

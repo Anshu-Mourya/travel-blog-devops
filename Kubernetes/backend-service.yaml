@@ -6,12 +6,12 @@ metadata:
   namespace: travel-app
 
 spec:
-  type: NodePort
+  type: ClusterIP
 
   selector:
     app: backend
 
   ports:
-    - port: 5001
+    - protocol: TCP
+      port: 5001
       targetPort: 5001
-      nodePort: 30081

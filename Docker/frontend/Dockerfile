@@ -1,5 +1,3 @@
-FROM nginx:latest
-
-COPY Frontend /usr/share/nginx/html
-
+FROM nginx:alpine
+COPY ./Frontend /usr/share/nginx/html
 EXPOSE 80
