@@ -19,21 +19,27 @@ spec:
 
     spec:
       containers:
-      - name: backend
-        image: travel-backend
+        - name: backend
+          image: travel-backend
 
-        imagePullPolicy: Never
+          imagePullPolicy: Never
 
-        ports:
-        - containerPort: 5001
+          ports:
+            - containerPort: 5001
 
-        envFrom:
-        - configMapRef:
-            name: backend-config
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongodb-service:27017/travel-app
+            - name: PORT
+              value: "5001"
 
-        env:
-        - name: MONGO_URI
-          valueFrom:
-            secretKeyRef:
-              name: mongodb-secret
-              key: MONGO_URI
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+
+            limits:
+              memory: "256Mi"
+              cpu: "500m"    
+
+        
