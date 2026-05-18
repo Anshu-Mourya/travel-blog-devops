@@ -1,0 +1,21 @@
+global:
+  scrape_interval: 15s       # scrape every 15 seconds
+  evaluation_interval: 15s
+
+scrape_configs:
+
+  # Scrape Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Scrape our backend app
+  - job_name: "travel-blog-backend"
+    static_configs:
+      - targets: ["backend:5001"]   # docker service name
+    metrics_path: "/metrics"
+
+  # Scrape MongoDB (via exporter)
+  - job_name: "mongodb"
+    static_configs:
+      - targets: ["mongodb-exporter:9216"]

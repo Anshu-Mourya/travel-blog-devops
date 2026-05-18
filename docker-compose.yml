@@ -1,23 +1,84 @@
-version: '3'
-
 services:
 
-  frontend:
-    build: ./Frontend
-    ports:
-      - "8080:80"
-
-  backend:
-    build: ./Backend
-    ports:
-      - "5001:5001"
-    environment:
-      - MONGO_URI=mongodb://mongodb:27017/travelDB
-      - PORT=5001
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo
+  # ── MongoDB ─────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    container_name: travel-mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - travel-network
+
+  # ── Backend ─────────────────────────────────────────────
+  backend:
+    build: ./Backend
+    container_name: travel-backend
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo
+    environment:
+      PORT: 5001
+      MONGO_URI: mongodb://mongo:27017/travel-blog
+    networks:
+      - travel-network
+
+  # ── Frontend ────────────────────────────────────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Docker/frontend/Dockerfile
+    container_name: travel-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - travel-network
+
+  # ── Prometheus ──────────────────────────────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: travel-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./Monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    networks:
+      - travel-network
+
+  # ── Grafana ─────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:latest
+    container_name: travel-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./Monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./Monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+    networks:
+      - travel-network
+
+# ── Networks ─────────────────────────────────────────────
+networks:
+  travel-network:
+    driver: bridge
+
+# ── Volumes ──────────────────────────────────────────────
+volumes:
+  mongo-data:
+  prometheus-data:
+  grafana-data:
