@@ -15,12 +15,5 @@ pipeline {
                 sh 'ls -la'
             }
         }
-
-        stage('Kubernetes Check') {
-            steps {
-                sh 'kubectl get nodes'
-                sh 'kubectl get pods -A'
-            }
-        }
     }
 }
